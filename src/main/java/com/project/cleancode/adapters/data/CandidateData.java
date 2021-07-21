@@ -1,33 +1,42 @@
-package com.project.cleancode.domain;
+package com.project.cleancode.adapters.data;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.List;
 
+@Entity
+public class CandidateData {
 
-public class Candidate {
-
+    @Id
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
     private int yearsExperience;
     private boolean hasBlog;
     private String blogURL;
-    private WebBrowser browser;
+    private WebBrowserData browser;
+    @ElementCollection
     private List<String> certifications;
     private String employer;
-    private List<Course> courseList;
+    @OneToMany
+    private List<CourseData> courseDataList;
     private int registrationFee;
 
-    public Candidate(String firstName,
-                     String lastName,
-                     String email,
-                     int yearsExperience,
-                     boolean hasBlog,
-                     String blogURL,
-                     WebBrowser browser,
-                     List<String> certifications,
-                     String employer,
-                     List<Course> courseList,
-                     int registrationFee) {
+
+    public CandidateData(String firstName,
+                         String lastName,
+                         String email,
+                         int yearsExperience,
+                         boolean hasBlog,
+                         String blogURL,
+                         WebBrowserData browser,
+                         List<String> certifications,
+                         String employer,
+                         List<CourseData> courseDataList,
+                         int registrationFee) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -37,8 +46,13 @@ public class Candidate {
         this.browser = browser;
         this.certifications = certifications;
         this.employer = employer;
-        this.courseList = courseList;
+        this.courseDataList = courseDataList;
         this.registrationFee = registrationFee;
+    }
+
+    @Deprecated
+    public CandidateData() {
+
     }
 
     public String getFirstName() {
@@ -61,27 +75,16 @@ public class Candidate {
         return hasBlog;
     }
 
-    public String getBlogURL() {
-        return blogURL;
-    }
-
-    public WebBrowser getBrowser() {
+    public WebBrowserData getBrowser() {
         return browser;
-    }
-
-    public List<String> getCertifications() {
-        return certifications;
     }
 
     public String getEmployer() {
         return employer;
     }
 
-    public List<Course> getCourseList() {
-        return courseList;
+    public List<CourseData> getCourseList() {
+        return courseDataList;
     }
 
-    public int getRegistrationFee() {
-        return registrationFee;
-    }
 }
