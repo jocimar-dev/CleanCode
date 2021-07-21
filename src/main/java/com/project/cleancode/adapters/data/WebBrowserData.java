@@ -1,16 +1,27 @@
-package com.project.cleancode.domain;
+package com.project.cleancode.adapters.data;
 
 import com.project.cleancode.domain.enums.BrowserName;
 
-public class WebBrowser {
+import javax.persistence.Embeddable;
+import javax.persistence.Id;
 
+@Embeddable
+public class WebBrowserData {
+
+    @Id
+    private Long id;
     private BrowserName name;
     private Integer majorVersion;
 
-    public WebBrowser(BrowserName name,
-                      Integer majorVersion) {
+    public WebBrowserData(BrowserName name,
+                          Integer majorVersion) {
         this.name = name;
         this.majorVersion = majorVersion;
+    }
+
+    @Deprecated
+    public WebBrowserData() {
+
     }
 
     public BrowserName getName() {
