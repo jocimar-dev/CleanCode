@@ -7,5 +7,4 @@ import com.project.cleancode.domain.model.Candidate;
 
 public interface CandidateRepository extends CandidateDataRepository {
     Candidate saveCandidate(CandidateData candidate);
-
 }

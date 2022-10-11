@@ -7,11 +7,12 @@ import com.project.cleancode.domain.model.Candidate;
 import com.project.cleancode.domain.repository.CandidateRepository;
 import com.project.cleancode.domain.usecase.exception.CandidateDoesntMeetRequirementsException;
 import com.project.cleancode.domain.usecase.exception.NoSessionApprovedException;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
 
-
+@Component
 public class CandidateServiceImpl implements CandidateService {
 
     private final CandidateRepository repository;
@@ -28,7 +29,7 @@ public class CandidateServiceImpl implements CandidateService {
         return repository.saveCandidate(candidateData);
     }
 
-    private void validateRegistration(CandidateData candidateData) {
+    public void validateRegistration(CandidateData candidateData) {
 
         boolean isQualified = candidateExceptional(candidateData) || !obviousRedflags(candidateData);
 
@@ -38,7 +39,8 @@ public class CandidateServiceImpl implements CandidateService {
         approveCourses(candidateData);
     }
 
-    private boolean candidateExceptional(CandidateData candidateData) {
+
+    public boolean candidateExceptional(CandidateData candidateData) {
         if (candidateData.getYearsExperience() > 10) return true;
         if (candidateData.isHasBlog()) return true;
         if (candidateData.getCourseList().size() > 3) return true;
@@ -48,7 +50,7 @@ public class CandidateServiceImpl implements CandidateService {
         return preferredEmployers.contains(candidateData.getEmployer());
     }
 
-    private boolean obviousRedflags(CandidateData candidateData) {
+    public boolean obviousRedflags(CandidateData candidateData) {
         String emailDomain = candidateData.getEmail().split("@")[1];
         List<String> ancientEmailDomain = Arrays.asList("aol.com", "hotmail.com", "prodigy.com", "compuserve.com");
         return (ancientEmailDomain.contains(emailDomain) ||
